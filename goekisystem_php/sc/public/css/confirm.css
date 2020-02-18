@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/* --------------------------------
+	アイコンのロングシャドウ
+-------------------------------- */
+/* --------------------------------
+	box-shadow
+-------------------------------- */
+/* --------------------------------
+	confirm-box
+-------------------------------- */
+.confirm-box + .confirm-box { margin-top: 5%; }
+.confirm-box .customer-wrap { -webkit-align-items: start; -moz-align-items: start; -ms-align-items: start; align-items: start; -js-display: flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: center; -moz-justify-content: center; -ms-justify-content: center; justify-content: center; -ms-flex-pack: center; margin: -1.25%; }
+.confirm-box .customer-wrap section { -webkit-flex-grow: 1; -moz-flex-grow: 1; -ms-flex-grow: 1; flex-grow: 1; margin: 1.25%; width: calc(100% / 3 - 2.5%); }
+@media screen and (max-width: 568px) { .confirm-box .customer-wrap section { width: calc(50% - 2.5%); } }
+.confirm-box .customer-wrap section p { font-size: 2rem; padding: 10% 2.5%; }
+.confirm-box section { border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); text-align: center; }
+.confirm-box section h2 { background: #e8f5fd; color: #118ed5; font-size: 2rem; font-weight: bold; text-align: center; padding: 2.5%; }
+.confirm-box section > div { background: #fff; padding: 5%; }
+.confirm-box section > div > p { font-size: 2rem; }
+.confirm-box section .girls-info img { border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+.confirm-box section .girls-info p { color: #118ed5; font-size: 2.4rem; font-weight: bold; padding: 2.5% 0; }
+.confirm-box section .girls-info small { display: block; font-weight: normal; }
+.confirm-box section .course { margin: auto; }
+.confirm-box section .subtotal-area:first-child { margin: 0; }
+.confirm-box section .subtotal-area h3 { border-left: 2px solid #118ed5; color: #118ed5; display: inline-block; font-size: 2.4rem; font-weight: bold; margin: 2.5%; text-align: left; padding-left: 2.5%; width: 100%; }
+.confirm-box .totar-bar { -webkit-align-items: center; -moz-align-items: center; -ms-align-items: center; align-items: center; background: #b2dbfb; border: 2px solid #2196f3; border-radius: 3px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); -js-display: flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-justify-content: space-between; -moz-justify-content: space-between; -ms-justify-content: space-between; justify-content: space-between; -ms-flex-pack: space-between; margin-top: 5%; padding: 2.5%; }
+.confirm-box .totar-bar p { color: #2196f3; font-size: 4rem; font-weight: bold; }
+
+.btn-area { -webkit-align-items: center; -moz-align-items: center; -ms-align-items: center; align-items: center; -js-display: flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-justify-content: space-between; -moz-justify-content: space-between; -ms-justify-content: space-between; justify-content: space-between; -ms-flex-pack: space-between; margin-top: 5%; }
+.btn-area a { margin: 0; width: calc(50% - 2.5%); }

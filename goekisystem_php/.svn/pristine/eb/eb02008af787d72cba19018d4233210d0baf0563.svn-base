@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Helpers;
+
+class UtilHelper
+{
+    public static function  listUser($user_cd, $user_tel, $user_pass, $user_name, $registdate, $star_level) {
+        $data = [
+            'user_cd' => $user_cd,
+            'user_tel' => $user_tel,
+            'pass' => $user_pass,
+            'name' => $user_name,
+            'registdate' => $registdate,
+            'star_level' => $star_level
+        ];
+        return $data;
+    }
+
+    public static function formatResponseXML($data) {
+        $num=strpos($data,'</result>?', 0);
+        $num=$num+9;
+        $data = substr($data,0,$num);
+        $data = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $data);
+        $data = str_replace(['&'], ['{{a}}'], $data);
+
+        return $data;
+    }
+
+    public static function replaceXMLSpecialChar($data) {
+        return str_replace(['{{a}}'], ['&'], $data);
+    }
+
+
+}

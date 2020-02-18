@@ -1,0 +1,60 @@
+@charset "UTF-8";
+/* --------------------------------
+	アイコンのロングシャドウ
+-------------------------------- */
+/* --------------------------------
+	box-shadow
+-------------------------------- */
+/* --------------------------------
+	course-container
+-------------------------------- */
+@media screen and (min-width: 569px) { .course-container { -js-display: flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: center; -moz-justify-content: center; -ms-justify-content: center; justify-content: center; -ms-flex-pack: center; margin: -1.25%; } }
+@media screen and (max-width: 568px) { .course-container > div + div { margin-top: 5%; } }
+
+/* --------------------------------
+	コース色分け
+-------------------------------- */
+.course-base { background: #b9e2f9; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); padding: 5%; }
+@media screen and (min-width: 569px) { .course-base { margin: 1.25%; padding: 5% 2.5%; width: calc(50% - 2.5%); } }
+.course-base h3 { color: #118ed5; font-size: 2.6rem; font-weight: bold; margin-bottom: 5%; text-align: center; }
+.course-base .check-bar { background: #43b1f0; }
+.course-base .check-bar.active { background: #118ed5; }
+.course-base .check-bar .course-time { width: 40%; }
+.course-base .check-bar .course-fee { border-left: 1px solid #72c5f4; width: 60%; }
+.course-base input:checked + .check-bar { background: #118ed5; }
+
+.course-blue { background: #e3f2fd; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); padding: 5%; }
+@media screen and (min-width: 569px) { .course-blue { margin: 1.25%; padding: 5% 2.5%; width: calc(50% - 2.5%); } }
+.course-blue h3 { color: #2196f3; font-size: 2.6rem; font-weight: bold; margin-bottom: 5%; text-align: center; }
+.course-blue .check-bar { background: #6ab8f7; }
+.course-blue .check-bar.active { background: #2196f3; }
+.course-blue .check-bar .course-time { width: 40%; }
+.course-blue .check-bar .course-fee { border-left: 1px solid #9acffa; width: 60%; }
+.course-blue input:checked + .check-bar { background: #2196f3; }
+
+.course-green { background: #d9eeda; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); padding: 5%; }
+@media screen and (min-width: 569px) { .course-green { margin: 1.25%; padding: 5% 2.5%; width: calc(50% - 2.5%); } }
+.course-green h3 { color: #4caf50; font-size: 2.6rem; font-weight: bold; margin-bottom: 5%; text-align: center; }
+.course-green .check-bar { background: #80c883; }
+.course-green .check-bar.active { background: #4caf50; }
+.course-green .check-bar .course-time { width: 40%; }
+.course-green .check-bar .course-fee { border-left: 1px solid #a3d7a5; width: 60%; }
+.course-green input:checked + .check-bar { background: #4caf50; }
+
+.course-orange { background: #ffeacc; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); padding: 5%; }
+@media screen and (min-width: 569px) { .course-orange { margin: 1.25%; padding: 5% 2.5%; width: calc(50% - 2.5%); } }
+.course-orange h3 { color: #FF9800; font-size: 2.6rem; font-weight: bold; margin-bottom: 5%; text-align: center; }
+.course-orange .check-bar { background: #ffb74d; }
+.course-orange .check-bar.active { background: #FF9800; }
+.course-orange .check-bar .course-time { width: 40%; }
+.course-orange .check-bar .course-fee { border-left: 1px solid #ffcc80; width: 60%; }
+.course-orange input:checked + .check-bar { background: #FF9800; }
+
+.course-purple { background: #e6b5ee; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); padding: 5%; }
+@media screen and (min-width: 569px) { .course-purple { margin: 1.25%; padding: 5% 2.5%; width: calc(50% - 2.5%); } }
+.course-purple h3 { color: #9C27B0; font-size: 2.6rem; font-weight: bold; margin-bottom: 5%; text-align: center; }
+.course-purple .check-bar { background: #c34cd7; }
+.course-purple .check-bar.active { background: #9C27B0; }
+.course-purple .check-bar .course-time { width: 40%; }
+.course-purple .check-bar .course-fee { border-left: 1px solid #d176e1; width: 60%; }
+.course-purple input:checked + .check-bar { background: #9C27B0; }

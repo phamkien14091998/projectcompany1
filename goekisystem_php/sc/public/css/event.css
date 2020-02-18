@@ -1,0 +1,28 @@
+.banner-img-select{margin-top: 10px; margin-bottom: 15px;}
+.banner-display{display: flex;}
+.banner-image{width: 40%; height: 200px}
+.change_img.one{margin-left: 165px; margin-top: 10px; color: white;}
+.change_img.two{margin-left: 340px; margin-top: 10px; color: white;}
+.banner-display img{object-fit: contain;}
+.event-detail{display: flex; margin-left: 10px;}
+.date-setting{margin-left: 150px;}
+#add-event-btn{float: right; margin-right: 10px;}
+.content.container-fluid button{background-color: #474747;border: none;color: white!important;padding: 6px 21px;text-align: center;text-decoration: none;display: inline-block;font-size: 20px; margin-left: 20px;}
+.content.container-fluid button:hover{opacity: 0.8}
+#addEvent button{background-color: #474747;border: none;color: white!important;padding: 6px 21px;text-align: center;text-decoration: none;display: inline-block; margin-top: 25px;}
+#addEvent button:hover{opacity: 0.8}
+.event-content{margin-left: 35px;}
+.box-body th{text-align: center}
+
+#update-event-btn{float: right; margin-right: 10px;}
+#update-Event button{background-color: #474747;border: none;color: white!important;padding: 6px 21px;text-align: center;text-decoration: none;display: inline-block; margin-top: 25px;}
+#update-event-btn{margin-top: 25px!important;}
+#update-Event button:hover{opacity: 0.8}
+.close-btn{font-size: 10px!important; font: caption!important; margin-top: 0px!important;}
+.title-name{font-weight: bold;}
+.event-name{margin-left: 44px;}
+.event-next-time{margin-top: 10px;}
+.modal-body{height: 470px;}
+.banner-title{font-size: 16px!important;}
+.popup-img{margin-top: 25px;}
+.banner_color{margin-left: 44px; font-weight: bold;}

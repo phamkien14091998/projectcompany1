@@ -1,0 +1,240 @@
+$(document).ready(function () {
+    $(function () {
+        $('#datepicker').datepicker({
+            format: "yyyy年mm月dd日",
+            language: 'ja',
+            autoclose: true,
+        }).datepicker("setDate", "-1d");
+    });
+
+    $(function () {
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd",
+        });
+    });
+// 月別
+    $(function () {
+        $('.app-datepicker').datepicker({
+            format: "yyyy-mm-dd",
+            language: 'ja',
+            minViewMode: 1,
+            setDate: new Date(),
+        });
+    });
+
+    $('.type-girl').on('change',function () {
+        $('#form-sort').submit();
+    });
+
+    //upload img
+    function readURL(input,id) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.img_contain_'+id).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#one").change(function(){ //button
+        readURL(this,"one");
+        $('.img_contain_one').css('visibility','visible'); // show img
+    });
+
+    $("#two").change(function(){ //button
+        readURL(this,"two");
+        $('.img_contain_two').css('visibility','visible'); // show img
+    });
+
+    $("#three").change(function(){ //button
+        readURL(this,"three");
+        $('.img_contain_three').css('visibility','visible'); // show img
+    });
+
+    $("#four").change(function(){ //button
+        readURL(this,"four");
+        $('.img_contain_four').css('visibility','visible'); // show img
+    });
+
+    $("#five").change(function(){ //button
+        readURL(this,"five");
+        $('.img_contain_five').css('visibility','visible'); // show img
+    });
+//
+
+    $("#updateImgArea").change(function(){ //button
+        readURL(this,"one");
+        $('.img_contain_area').css('visibility','visible'); // show img
+    });
+
+    $(document).on('click', '.pick-user', function () {
+        var diary_cd = $(this).attr('data-user');
+        var id = $(this).attr('girl_cd');
+        var all_tr = $('tr');
+        $.ajax({
+            method: 'GET',
+            url: '/home/girlContents',
+            dataType: 'html',
+            data: {diary_cd: diary_cd, id: id},
+            success: function (res) {
+                if (res) {
+                    $('.contents-girl').html(res);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+        $.ajax({
+            method: 'GET',
+            url: '/home/girlShowImg',
+            dataType: 'html',
+            data: {diary_cd: diary_cd, id: id},
+            success: function (res) {
+                if (res) {
+                    $('.img-girl').html(res);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+        all_tr.removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+    });
+
+    $(document).on('click', '.pick-girl', function () {
+        var id = $(this).attr('id-girl');
+        var girl_cd = $(this).attr('girl_cd');
+        var all_tr = $('tr');
+        $.ajax({
+            method: 'GET',
+            url: '/home/girlInfo',
+            dataType: 'html',
+            data: {id: id, girl_cd: girl_cd},
+            success: function (res) {
+                if (res) {
+                    $('.info-girl').html(res);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+        all_tr.removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+    });
+
+    $(document).on('click', '#quit_flg_1', function () {
+        var d = document.getElementById('hidden_quit');
+        if (d.style.display == 'block'){
+            d.style.display = 'none';
+        }else {
+            d.style.display = 'block';
+        }
+    });
+
+    $('.form_img').on('submit',function(e) {
+        e.preventDefault();
+        var form_data= new FormData(this);
+        $.ajax({
+            url: '/home/update_img',
+            type: "post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (res) {
+                // location.reload();
+            },
+            error: function (response) {
+                alert("画像のサイズが大きすぎです。");
+            }
+        })
+    });
+
+    $('.form_img_area').on('submit',function(e) {
+        e.preventDefault();
+        var form_data= new FormData(this);
+        $.ajax({
+            url: '/imgArea/update',
+            type: "post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (res) {
+                // location.reload();
+            },
+            error: function (response) {
+                alert("画像のサイズが大きすぎです。");
+            }
+        })
+    });
+
+
+    $(document).on('click',  '#syukin_flg1', function () {
+        var a = document.getElementById('show_text1');
+        if (a.style.display === 'none') {
+            a.style.display = 'block';
+        } else {
+            a.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg2', function () {
+        var b = document.getElementById('show_text2');
+        if (b.style.display === 'none') {
+            b.style.display = 'block';
+        } else {
+            b.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg3', function () {
+        var c = document.getElementById('show_text3');
+        if (c.style.display === 'none') {
+            c.style.display = 'block';
+        } else {
+            c.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg4', function () {
+        var d = document.getElementById('show_text4');
+        if (d.style.display === 'none') {
+            d.style.display = 'block';
+        } else {
+            d.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg5', function () {
+        var e = document.getElementById('show_text5');
+        if (e.style.display === 'none') {
+            e.style.display = 'block';
+        } else {
+            e.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg6', function () {
+        var f = document.getElementById('show_text6');
+        if (f.style.display === 'none') {
+            f.style.display = 'block';
+        } else {
+            f.style.display = 'none';
+        }
+    });
+    $(document).on('click',  '#syukin_flg7', function () {
+        var g = document.getElementById('show_text7');
+        if (g.style.display === 'none') {
+            g.style.display = 'block';
+        } else {
+            g.style.display = 'none';
+        }
+    });
+
+//home
+
+    $(function () {
+        setTimeout(function () {
+            $(".alert ").fadeOut('slow');
+        }, 5000);
+    });
+});

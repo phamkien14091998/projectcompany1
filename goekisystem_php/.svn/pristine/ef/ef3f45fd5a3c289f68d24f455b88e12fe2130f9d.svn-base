@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/* --------------------------------
+	アイコンのロングシャドウ
+-------------------------------- */
+/* --------------------------------
+	box-shadow
+-------------------------------- */
+/* --------------------------------
+	container
+-------------------------------- */
+.container { padding-bottom: 5%; }
+
+/* --------------------------------
+	クレジットカードラップ（<head>内に「paymentfont.min.css」読み込み必須）
+-------------------------------- */
+.card-wrap { background: #e8f5fd; border-radius: 3px; padding: 5%; }
+.card-wrap ul { -webkit-align-items: start; -moz-align-items: start; -ms-align-items: start; align-items: start; -js-display: flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: center; -moz-justify-content: center; -ms-justify-content: center; justify-content: center; -ms-flex-pack: center; margin: -1.25%; }
+.card-wrap ul li { background: #fff; border-radius: 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); color: #118ed5; margin: 1.25%; padding: 2.5% 5%; text-align: center; width: calc(100% / 3 - 2.5%); }
+@media screen and (max-width: 568px) { .card-wrap ul li { width: calc(50% - 2.5%); } }
+.card-wrap ul li i { font-size: 7rem; }

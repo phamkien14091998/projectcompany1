@@ -1,0 +1,93 @@
+
+
+.btn-primary{
+    width: 80px;
+    height: 30px;
+
+}
+.Select{
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+
+.bt{
+    background-color: dimgrey; color: floralwhite;
+}
+#bg-hearder{
+    background-color: #ffffff;
+}
+.pd-c{
+    margin-top: 5px;
+}
+
+#id-date{
+    width: 35px; height: 35px;
+}
+#ui-datepicker-div {
+    font-size: 14px;
+  }
+
+  .bt{
+    background-color: dimgrey; color: floralwhite;
+}
+
+  /* modal */
+  .modal-content{
+
+   
+    margin-top: 50px;
+    margin-right: 50px;;
+    
+    /* width: 1200px;
+    height: 1000px; */
+    width: 1200px;
+    height: 100%;
+  
+
+}
+#modal{
+    border: 5px solid aliceblue;
+    background-color: white;
+}
+
+
+.modal-body{
+
+    color: black;
+}
+.modal-header{
+    color: black;
+}
+
+.lb{
+    color: black;
+ 
+}
+#close{
+    color: black;
+}
+
+#classModal {}
+
+.modal-body {
+  overflow-x: auto;
+}
+
+#header{
+    background-color: lightcoral;
+    color: yellow;
+
+}
+#container{
+    
+}
+#footer{
+    background-color: lightcoral;
+    color: rgb(131, 131, 109);
+
+}
+
+
+

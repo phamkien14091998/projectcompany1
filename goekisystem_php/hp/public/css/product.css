@@ -1,0 +1,40 @@
+.content-body{width: 100%;display: flex;}
+.list-item-product{margin: 10px 10px;width: 100%}
+.area-select{width: 100%;}
+.item-list table{width: 100%; background-color: white}
+.type{width: 100%;}
+.add-item{
+    margin: 10px 141px;
+    width: 70px;
+}
+.content-item-product{width: 70%; background-color: white; margin: 20px 20px;}
+.list_img .img{width:200px; height: 200px;background-image: none; background-repeat: no-repeat; background-position: center center; background-size: contain;}
+.item-info{display: flex;}
+.image-main{width: 25%; height: 435px;background-image: none; background-repeat: no-repeat; background-position: center center; background-size: contain; }
+.infor-detail{width: 75%; margin-left: 45px;}
+.info-1{width: 30%}
+.info-2{width: 70%; margin-left: 50px;}
+.content-item-product{margin-top: 10px}
+.infor-detail span{font-size: 18px;}
+.infor-detail p{font-size: 14px; margin-bottom: 25px;}
+.update-btn{margin-left: 40%; margin-bottom: 20px}
+.delete-btn{margin-left: 10px}
+
+.modal-dialog.modal-lg{width: 70%}
+#update-product{display: flex;}
+.img_main_popup{width: 30%; height: 200px;margin-top: 95px;padding: 20px; object-fit: contain;}
+.product-info-popup{width: 70%}
+.list-img-product-popup img{width: 200px; height: 200px; object-fit: contain;}
+.change_img{width: 22%}
+.delete_img{width: 22%}
+.product-info-detail{display: flex;}
+.infor-popup-1{width: 50%}
+.infor-popup-2{width: 50%; margin-left: 10px;}
+.product-info-detail input{margin-bottom: 15px}
+.product-info-detail textarea{margin-bottom: 15px}
+.modal-body-add{width: fit-content; margin: auto;}
+.popup-title{text-align: center; font-weight: bold;}
+#product-title{text-align: center; margin-top: 15px;}
+#add-product-btn{margin: 15px 100px;}
+.modal-body-delete{width: fit-content; margin: auto}
+#delete-product-btn{margin: 10px 35px;}

@@ -1,0 +1,16 @@
+<?php
+//print_r($data);die();
+//print_r($_GET['diary_cd']);die();
+if (isset($data['item']) && $data['item']){
+    foreach ($data['item'] as $item){
+        if ($_GET['diary_cd'] == $item['diary_cd']){
+            echo <<<HTML
+<div class="girls-head" style="height: 300px">
+    <div class="girls-img">
+        <img class="img img_contain_one" style="height: 300px;" src="http://img.eki-go.com/img_diary/{$item['girl_cd']}/{$item['diary_img_url']}">
+    </div>
+</div>
+HTML;
+        }
+    }
+}

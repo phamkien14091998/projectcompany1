@@ -1,0 +1,157 @@
+<?php namespace App\Http\Controllers;
+
+use App\Helpers\Common;
+use App\Helpers\ConstantHelper;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
+class HomeController extends Controller {
+
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	| This controller renders your application's "dashboard" for users that
+	| are authenticated. Of course, you are free to change or remove the
+	| controller as you wish. It is just here to get your app started!
+	|
+	*/
+
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
+	/**
+	 * Show the application dashboard to the user.
+	 *
+	 * @return Response
+	 */
+
+    public function index(Request $request)
+    {
+        $user_tel = $request->input('tel');
+        $pageno = $request->page;
+        $array = [
+            'user_tel' => $user_tel,
+            'pageno' => $pageno
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_LIST;
+        $api_result = $api->getListUser($pathMyLogin, $array);
+        return view('pages.index')->with(['r' => $request, 'data' => $api_result]);
+    }
+
+    public function addUser(){
+        return view('pages.add_user');
+    }
+
+    public function addUserList(Request $r){
+        $api = new apiControllers();
+        $tel = strlen(trim($r->input('inputTel')));
+        $pass = strlen(trim($r->input('inputPas')));
+        $name = strlen(trim($r->input('inputName')));
+        $registdate_check = $r->input('inputDate');
+        if ($tel > 0 && $pass > 5 && $name > 0 && !empty($registdate_check)){
+            $user_tel = $r->input('inputTel');
+            $user_pass = $r->input('inputPas');
+            $user_name = $r->input('inputName');
+            $registdate = date('Y-m-d H:i:s', strtotime($r->input('inputDate')));
+            $array = [
+                'user_tel' => $user_tel,
+                'pass' => $user_pass,
+                'name' => $user_name,
+                'registdate' => $registdate
+            ];
+            $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_INSERT;
+            $api->getListUser($pathMyLogin, $array);
+            $r->session()->flash('success', '追加できました。');
+            return redirect('/');
+        }else{
+            $r->session()->flash('fail', '追加できませんでした。タイトルまたは、本文を入力してください。');
+            return redirect('home/add');
+        }
+    }
+
+    public function detailUser(Request $request){
+        $user_cd = $request->id;
+        $pageno = $request->page;
+        $array = [
+            'user_cd' => $user_cd,
+            'pageno' => $pageno
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_LIST;
+        $api_result = $api->getListUser($pathMyLogin, $array);
+        return view('pages.detail_user')->with(['r' => $request, 'data' => $api_result]);
+    }
+
+    public function detailUserForm(Request $request){
+        $user_cd = $request->id;
+        $array = [
+            'user_cd' => $user_cd
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_DETAIL.$user_cd;
+        $api_result = $api->getFormUser($pathMyLogin, $array);
+        return view('pages.detail_user_form')->with(['data' => $api_result]);
+    }
+
+    public function updateUserInfo(Request $r)
+    {
+        $api = new apiControllers();
+        $user_cd = $r->input('user_cd');
+        $user_tel = $r->input('inputTelCof');
+        $user_pass = $r->input('inputPassCof');
+        $array = [
+            'user_cd' => $user_cd,
+            'user_tel' => $user_tel,
+            'pass' => $user_pass
+        ];
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_UPDATE_USER_INFO;
+        $api->getListUser($pathMyLogin, $array);
+        return redirect('/');
+    }
+
+    public function deleteUser(Request $r){
+        $user_cd = $r->id;
+        $array = [
+            'user_cd' => $user_cd
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_DELETE;
+        $api->getListUser($pathMyLogin, $array);
+        return redirect('/');
+    }
+
+    public function rankUser(Request $request){
+        $user_cd = $request->id;
+        $array = [
+            'user_cd' => $user_cd
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_LIST;
+        $api_result = $api->getListUser($pathMyLogin, $array);
+        return view('pages.detail_star_level')->with(['r' => $request, 'data' => $api_result]);
+    }
+
+    public function updateRankUser(Request $r){
+        $api = new apiControllers();
+        $user_cd = $r->input('user_cd');
+        $star_level = $r->star_level;
+        $array = [
+            'user_cd' => $user_cd,
+            'star_level' => $star_level
+        ];
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$USER_UPDATE_RANK;
+        $api->getListUser($pathMyLogin, $array);
+        return redirect('/');
+    }
+}

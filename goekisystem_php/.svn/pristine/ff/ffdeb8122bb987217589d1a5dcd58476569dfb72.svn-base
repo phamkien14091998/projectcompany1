@@ -1,0 +1,214 @@
+<?php
+if (empty($_GET['page'])){
+    $_GET['page'] = 1;
+}
+//ini_set('memory_limit', '500M');
+//print_r($data);die();
+?>
+@extends('layouts.index')
+@section('contents')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>在籍女性</h1>
+    </section>
+    <section class="content container-fluid">
+        <div class="row margin-bottom">
+            <div class="col-md-2">
+                <a href="{{url('home/add')}}" class="btn-material">
+                <span class="btn btn-white btn-circle">
+                    <i class="fa fa-plus fa-fw"></i>
+                </span>
+                    <span>新規作成</span>
+                </a>
+            </div>
+            <br>
+            <div class="col-md-3">
+                <form action="{{url('/home')}}" method="GET">
+                    <input type="hidden" name="search_type" value="{{$r->search_type}}">
+                    <input type="hidden" name="girl_name" value="{{$r->girl_name}}">
+                    <input type="checkbox" id="chk_zaiseki" name="chk_zaiseki" {{$r->chk_zaiseki == 1 ? 'checked' : ''}}  value="1"> <span style="padding-right: 30px;">在籍オフ表示</span>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            <div class="col-md-2" style="width: 85px;">
+                <label>並び順:</label>
+            </div>
+            <div class="col-md-3" style="width: 150px;">
+                <form id="form-sort" role="form" method="GET" action="{{url('/home')}}">
+                    <input type="hidden" name="chk_zaiseki" value="{{$r->chk_zaiseki}}">
+                    <input type="hidden" name="girl_name" value="{{$r->girl_name}}">
+                    <select name="search_type" class="type-girl" style="height: 30px;">
+                        <option value="0" {{isset($_GET['search_type']) && $_GET['search_type'] == 0 ? 'selected' : ''}}>50音順</option>
+                        <option value="9" {{isset($_GET['search_type']) && $_GET['search_type'] == 9 ? 'selected' : ''}}>優先順位順</option>
+                    </select>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form action="{{url('/home')}}" method="get">
+                    <div class="input-group input-group-md">
+                        <input type="hidden" name="chk_zaiseki" value="{{$r->chk_zaiseki}}">
+                        <input type="hidden" name="search_type" value="{{$r->search_type}}">
+                        <input type="text" name="girl_name" value="{{$r->girl_name}}" class="form-control pull-right" placeholder="女性名" style="width:200px">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default" style="height: 35px"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-icon pull-left"><i class="fa fa-users"></i></div>
+            <div class="box-header clearfix">
+            </div>
+            <div class="box-body">
+                <div class="row d-flex flex-wrap">
+                    @if(isset($data['item']) && $data['item'] && !isset($data['item']['girl_cd']))
+                        @foreach($data['item'] as $item)
+                            @if(isset($item['girl_cd']))
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                    <div class="girls-box">
+                                        <a href="{{url('/home/detail/' . $item['girl_cd'])}}" data-id="{{isset($item['girl_cd']) ? $item['girl_cd'] : ''}}">
+                                            <div class="girls-head">
+                                                <div class="girls-img">
+                                                    <img src="{{isset($item['img1']) ? $item['img1'] : ''}}">
+                                                </div>
+                                            </div>
+                                            <p class="girls-name">
+                                                @if(!empty($item['girl_name']) && empty($item['girl_age']))
+                                                <span class="name">{{$item['girl_name']}}</span>
+                                                @elseif(isset($item['girl_age']) && empty($item['girl_name']))
+                                                <span class="name">{{'('.$item['girl_age'].')'}}</span>
+                                                @else
+                                                <span class="name">{{$item['girl_name'].'('.$item['girl_age'].')'}}</span>
+                                                @endif
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                New: {{isset($item['new_flg']) ? $item['new_flg'] : ''}}
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                担当:{{isset($item['quit_flg']) ? $item['quit_flg'] : ''}}
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                理由:{{isset($item['girl_memo78']) ? $item['girl_memo78'] : ''}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @elseif(isset($data['item']['girl_cd']))
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                            <div class="girls-box">
+                                <a href="{{url('/home/detail/' . $data['item']['girl_cd'])}}" data-id="{{$data['item']['girl_cd']}}">
+                                    <div class="girls-head">
+                                        <div class="girls-img">
+                                            <img src="{{$data['item']['img1']}}">
+                                        </div>
+                                    </div>
+                                    <p class="girls-name">
+                                        <span class="name">{{$data['item']['girl_name'].'('.$data['item']['girl_age'].')'}}</span>
+                                    </p>
+                                    <p class="girls-comment text-left">
+                                        New: {{$data['item']['new_flg']}}
+                                    </p>
+                                    <p class="girls-comment text-left">
+                                        担当:{{$data['item']['quit_flg']}}
+                                    </p>
+                                    <p class="girls-comment text-left">
+                                        優先順位:{{$data['item']['girl_memo78']}}</p>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                @if(isset($data['item']) || isset($data['item']['girl_cd']))
+                    <div class="box-footer text-center">
+                        <ul class="pagination text-center">
+                            @if (isset($total_page) && $total_page > 1)
+                                @if(isset($_GET['search_type']) || isset($_GET['girl_name']) || isset($_GET['chk_zaiseki']))
+                                    @if($_GET['page'] != 1 && $total_page >= 5)
+                                        <li>
+                                            <a href="{{url('/home/?page=1&search_type='.$_GET['search_type'].'&girl_name'.$_GET['girl_name'].'=&chk_zaiseki='.$_GET['chk_zaiseki'])}}" aria-label="Previous">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if($_GET['page'] != 1)
+                                        <li>
+                                            <a href="{{url('/home/?page='. $_GET['page']-1 .'&search_type='.$_GET['search_type'].'&girl_name'.$_GET['girl_name'].'=&chk_zaiseki='.$_GET['chk_zaiseki'])}}" aria-label="Previous" class="previous">
+                                                <span aria-hidden="true">‹</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @for($i = max($_GET['page']-2, 1); $i <= min(max($_GET['page']-2, 1)+4,$total_page); $i++)
+                                        @if($_GET['page'] == $i)
+                                        <li class="active">
+                                        @else
+                                        <li>
+                                        @endif
+                                            <a href="{{url('home/?page='.$i.'&search_type='.$_GET['search_type'].'&girl_name'.$_GET['girl_name'].'=&chk_zaiseki='.$_GET['chk_zaiseki'])}}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                    @if ($_GET['page'] != $total_page)
+                                        <li>
+                                            <a href="{{url('/home/?page='.($_GET['page']+1) .'&search_type='.$_GET['search_type'].'&girl_name'.$_GET['girl_name'].'=&chk_zaiseki='.$_GET['chk_zaiseki'])}}" aria-label="Next" class="next">
+                                                <span aria-hidden="true"> › </span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if ($_GET['page'] != $total_page && $total_page >= 5)
+                                        <li>
+                                            <a href="{{url('/home/?page='.$total_page.'&search_type='.$_GET['search_type'].'&girl_name'.$_GET['girl_name'].'=&chk_zaiseki='.$_GET['chk_zaiseki'])}}" aria-label="Next">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @else
+                                    @if($_GET['page'] != 1 && $total_page >= 5)
+                                        <li>
+                                            <a href="{{url('/?page=1') }}" aria-label="Previous">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if($_GET['page'] != 1)
+                                        <li>
+                                            <a href="{{url('/?page='.$_GET['page']-1) }}" aria-label="Previous" class="previous">
+                                                <span aria-hidden="true">‹</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @for($i = max($_GET['page']-2, 1); $i <= min(max($_GET['page']-2, 1)+4,$total_page); $i++)
+                                        @if($_GET['page'] == $i)
+                                            <li class="active">
+                                        @else
+                                        <li>
+                                            @endif
+                                            <a href="{{url('/?page='.$i)}}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                    @if ($_GET['page'] != $total_page)
+                                        <li>
+                                            <a href="{{url('/?page='.($_GET['page']+1))}}" aria-label="Next" class="next">
+                                                <span aria-hidden="true"> › </span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if ($_GET['page'] != $total_page && $total_page >= 5)
+                                        <li>
+                                            <a href="{{url('/?page='.$total_page)}}" aria-label="Next">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endif
+                            @endif
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+    @include('messages.error_form')
+@endsection

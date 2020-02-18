@@ -1,0 +1,148 @@
+<?php
+//print_r($data);die();
+$begin = new DateTime("07:00");
+$end   = new DateTime("23:30");
+
+$interval = DateInterval::createFromDateString('30 min');
+
+$times = new DatePeriod($begin, $interval, $end);
+?>
+@extends('layouts.index')
+@section('contents')
+    <section class="content-header">
+        <h1>紹介ポイント</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="pull-right">
+            <a href="{{url('/home/detail/' . $r->id)}}" class="btn-material">
+                <span class="btn btn-sm bg-teal">
+                    <span>在籍女性へ戻る</span>
+                </span>
+            </a>
+        </div>
+        <div class="box">
+            <div class="box-icon pull-left"><i class="fa fa-user"></i></div>
+            <div class="box-header clearfix"></div>
+
+            <ul class="nav nav-tabs" id="example-tabs" role="tablist" style="padding-bottom: 15px;">
+                @if(isset($data['item']) && $data['item'])
+                    @foreach($data['item'] as $item)
+                        @if($item['girl_cd'] == $r->id)
+                            <form class="form_img">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                <input type="hidden" name="girl_cd" value="{{$r->id}}">
+                                <li style="width: 30%; padding: 10px; float: left;">
+                                    <div class="girls-head" style="height: 300px">
+                                        <div class="girls-img">
+                                            <img class="img" style="height: 300px;" src="http://img.eki-go.com/img_girl/{{$item['girl_cd']}}/1.jpg">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="width: 70%; padding: 10px;float: right">
+                                    <div>
+                                        <label>{{$item['syukin_date_w']}}</label>
+                                        <input type="hidden" name="syukin_flg" id="syukin_flg" value="0">
+                                        <input type="checkbox" name="syukin_flg" id="syukin_flg1" value="1">
+                                        @if(!empty($item['date_start']) && !empty($item['date_end']) && $item['date_start'] != $item['date_end'])
+                                            <select name="date_start">
+                                                @foreach($times as $time)
+                                                    <option {{$item['date_start'] == $time->add($interval)->format('H:i') ? 'selected' : ''}} value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span>-</span>
+                                            <select name="date_end">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}" {{$item['date_end'] == $time->add($interval)->format('H:i') ? 'selected' : ''}}>{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label>画像削除
+                                                <input type="checkbox" name="premie_flg" id="premie_flg">
+                                            </label>
+                                            <label>画像
+                                                <input type="checkbox" name="tomari_flg" id="tomari_flg">
+                                            </label>
+                                        @endif
+                                        <div style="display: none" id="show_text1">
+                                            <select name="date_start">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span>-</span>
+                                            <select name="date_end">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label>画像削除
+                                                <input type="checkbox" name="premie_flg" id="premie_flg">
+                                            </label>
+                                            <label>画像
+                                                <input type="checkbox" name="tomari_flg" id="tomari_flg">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @for($i = 2; $i<=7; $i++)
+                                    <div>
+                                        <label>{{$item['syukin_date' . $i . '_w']}}</label>
+                                        <input type="hidden" name="syukin_flg{{$i}}" id="syukin_flg{{$i}}" value="0">
+                                        <input type="checkbox" name="syukin_flg{{$i}}" id="syukin_flg{{$i}}" value="1">
+                                        @if(!empty($item['date_start'. $i]) && !empty($item['date_end'. $i])  && $item['date_start' .$i] != $item['date_end'. $i])
+                                            <select name="date_start2">
+                                                @foreach($times as $time)
+                                                    <option {{$item['date_start'. $i] == $time->add($interval)->format('H:i') ? 'selected' : ''}} value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span>-</span>
+                                            <select name="date_end2">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}" {{$item['date_end'. $i] == $time->add($interval)->format('H:i') ? 'selected' : ''}}>{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label>画像削除
+                                                <input type="checkbox" name="premie_flg{{$i}}" id="premie_flg{{$i}}">
+                                            </label>
+                                            <label>画像
+                                                <input type="checkbox" name="tomari_flg{{$i}}" id="tomari_flg{{$i}}">
+                                            </label>
+                                        @endif
+                                        <div style="display: none" id="show_text{{$i}}">
+                                            <select name="date_start{{$i}}">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span>-</span>
+                                            <select name="date_end{{$i}}">
+                                                @foreach($times as $time)
+                                                    <option value="{{$time->add($interval)->format('H:i')}}">{{$time->add($interval)->format('H:i')}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label>画像削除
+                                                <input type="checkbox" name="premie_flg{{$i}}" id="premie_flg{{$i}}">
+                                            </label>
+                                            <label>画像
+                                                <input type="checkbox" name="tomari_flg{{$i}}" id="tomari_flg{{$i}}">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @endfor
+                                </li>
+                                <div style="text-align: center;">
+                                    <label class="btn-material">
+                                        <input type="submit" style="width: 142px;" class="btn btn-lg bg-aqua" value="保存する">
+                                    </label>
+                                </div>
+                            </form>
+                        @endif
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+    </section>
+    @include('messages.error_form')
+@endsection

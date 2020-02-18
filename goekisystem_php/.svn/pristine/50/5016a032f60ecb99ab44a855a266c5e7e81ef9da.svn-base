@@ -1,0 +1,82 @@
+<?php
+namespace App\Http\Controllers;
+
+use App\Helpers\ConstantHelper;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class SyukinWeekController extends Controller
+{
+    public function index(Request $request)
+    {
+        $api = new apiControllers();
+        $client_cd = Auth::user()->client_cd;;
+        $img_path = 'http://img.eki-go.com/img_girl/';
+        $search_name = $request->search_name;
+        $array = [
+            'client_cd' => $client_cd,
+            'img_path' => $img_path,
+            'search_name' => $search_name
+        ];
+        $pathMyLogin = ConstantHelper::$DOMAIN_HP.ConstantHelper::$SYUKIN_WEEK_SELECT;
+        $api_result = $api->getListUser($pathMyLogin, $array);
+        return view('pages.syukin_week')->with(['r' => $request, 'data' => $api_result]);
+    }
+
+    public function detailArea(Request $request){
+        $client_cd = Auth::user()->client_cd;;
+        $img_path = 'http://img.eki-go.com/img_girl/';
+        $array = [
+            'img_path' => $img_path,
+            'client_cd' => $client_cd
+        ];
+        $api = new apiControllers();
+        $pathMyLogin = ConstantHelper::$DOMAIN_HP.ConstantHelper::$SYUKIN_WEEK_SELECT;
+        $api_result = $api->getListUser($pathMyLogin, $array);
+        return view('pages.syukin_week_detail')->with(['r' => $request,'data' => $api_result]);
+    }
+
+    public function updateGirl(Request $request){
+        $hour = date('H:i');
+        $regdate = $request->showdate . ' ' . $hour;
+        $area_1 = $request->area_1;
+        $area_2 = $request->area_2;
+        $area_3 = $request->area_3;
+        $area_4 = $request->area_4;
+        $area_5 = $request->area_5;
+        $area = $area_1 . ',' . $area_2 . ',' . $area_3 . ',' . $area_4 . ',' . $area_5;
+        $girl_cd = $request->girl_cd;
+        $msg = $request->msg;
+        $serialno = $request->serialno;
+        if (isset($girl_cd)){
+            $array_name = [
+                'Category_type' => 0,
+                'serialno' => $serialno,
+                'girl_cd' => $girl_cd,
+                'memo' => $msg,
+                'regdate' => $regdate,
+                'area' => $area,
+            ];
+            $api = new apiControllers();
+            $name_girl = ConstantHelper::$DOMAIN_MY.ConstantHelper::$RECOMMEND_UPDATE;
+            $api->updateUser($name_girl, $array_name);
+            $request->session()->flash('success', '追加できました。');
+            return redirect('/girl');
+        }else{
+            $request->session()->flash('fail', '追加できませんでした。タイトルまたは、本文を入力してください。');
+            return redirect('girl/detail');
+        }
+    }
+
+    public function deleteGirl(Request $r){
+        $api = new apiControllers();
+        $serialno = $r->id;
+        $array = [
+            'serialno' => $serialno
+        ];
+        $pathMyLogin = ConstantHelper::$DOMAIN_MY.ConstantHelper::$RECOMMEND_DELETE;
+        $api->getListUser($pathMyLogin, $array);
+        return redirect('/girl');
+    }
+
+}

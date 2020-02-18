@@ -1,0 +1,100 @@
+<?php
+if (empty($_GET['page'])){
+    $_GET['page'] = 1;
+}
+//ini_set('memory_limit', '500M');
+//print_r($data);die();
+?>
+@extends('layouts.index')
+@section('contents')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>在籍女性</h1>
+    </section>
+    <section class="content container-fluid">
+        <div class="row margin-bottom"></div>
+
+        <div class="box">
+            <div class="box-icon pull-left"><i class="fa fa-users"></i></div>
+            <div class="box-header clearfix"></div>
+
+            <div class="box-body">
+                <div class="row d-flex flex-wrap">
+                    @if(isset($data['item']) && $data['item'])
+                        @foreach($data['item'] as $item)
+                            @if(isset($item['girl_name']))
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                    <div class="girls-box">
+                                        <a href="{{url('/imgArea/detail/' . $item['girl_cd'])}}" data-id="{{$item['girl_cd']}}">
+                                            <div class="girls-head">
+                                                <div class="girls-img" style="border-radius: 0;height: auto">
+                                                    <img style="padding: 20px 0 0 6px" src="{{$item['img_mini']}}">
+                                                </div>
+                                            </div>
+                                            <p class="girls-name">
+                                                <span class="name-img-area">{{$item['girl_name'].'('.$item['girl_age'].')'}}</span>
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                New: {{$item['new_flg']}}
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                担当:{{$item['quit_flg']}}
+                                            </p>
+                                            <p class="girls-comment text-left">
+                                                優先順位:{{$item['girl_memo78']}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+                </div>
+                <div class="box-footer text-center">
+                    <ul class="pagination text-center">
+                        @if (isset($total_page) && $total_page > 1)
+                            @if($_GET['page'] != 1 && $total_page >= 5)
+                                <li>
+                                    <a href="{{url('/imgArea/?page=1') }}" aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if($_GET['page'] != 1)
+                                <li>
+                                    <a href="{{url('/imgArea/?page='.$_GET['page']-1) }}" aria-label="Previous" class="previous">
+                                        <span aria-hidden="true">‹</span>
+                                    </a>
+                                </li>
+                            @endif
+                            @for($i = max($_GET['page']-2, 1); $i <= min(max($_GET['page']-2, 1)+4,$total_page); $i++)
+                                @if($_GET['page'] == $i)
+                                    <li class="active">
+                                @else
+                                <li>
+                                    @endif
+                                    <a href="{{url('/imgArea/?page='.$i)}}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            @if ($_GET['page'] != $total_page)
+                                <li>
+                                    <a href="{{url('/imgArea/?page='.($_GET['page']+1))}}" aria-label="Next" class="next">
+                                        <span aria-hidden="true"> › </span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($_GET['page'] != $total_page && $total_page >= 5)
+                                <li>
+                                    <a href="{{url('/imgArea/?page='.$total_page)}}" aria-label="Next">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            @endif
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    @include('messages.error_form')
+@endsection
